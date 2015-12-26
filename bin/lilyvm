@@ -1,0 +1,119 @@
+#!/usr/bin/env sh
+
+
+export ROOT_DIR="$( cd "$( dirname "${0}" )/.." && pwd )"
+
+#---------#
+# Imports #
+#---------#
+
+. "${ROOT_DIR}/lib/import.sh"
+import options
+import config-utils
+import log
+
+
+#------#
+# Init #
+#------#
+
+# Output is hard to read when it's smashed against the previous command, so
+#   let's start with a blank line
+echo
+
+#------#
+# Main #
+#------#
+
+# handle options
+while getopts ":hv-:" opt; do
+  case "${opt}" in
+  	-)
+      case "${OPTARG}" in
+		    help)
+	        usage 1
+	        exit 0
+	        ;;
+        version)
+          version
+          exit 0
+          ;;
+		    *)
+	        log_error "Unknown option '--${OPTARG}'\n"
+          usage 2
+          exit 1
+	        ;;
+      esac
+      ;;
+	  h)
+      usage 1
+      exit 0
+      ;;
+    v)
+      version
+      exit 0
+      ;;
+	  \?)
+      log_error "Invalid option given: -${OPTARG}\n"
+      usage 2
+      exit 1
+      ;;
+	  :)
+      log_error "Option -${OPTARG} requires an argument\n"
+      usage 2
+      exit 1
+      ;;
+	  *)
+      log_error "Invalid option given: -${OPTARG}\n"
+      usage 2
+      exit 1
+      ;;
+  esac
+done
+
+# handle command
+if [ "$#" = 0 ]; then
+  log_error "Must provide a command.\n"
+  usage 2
+  exit 1
+fi
+
+command="${1}"
+shift
+case "${command}" in
+  disable-colors)
+    "${ROOT_DIR}/commands/disable-colors.sh" "${@}"
+    ;;
+  enable-colors)
+    "${ROOT_DIR}/commands/enable-colors.sh" "${@}"
+    ;;
+  install)
+    "${ROOT_DIR}/commands/install.sh" "${@}"
+    ;;
+  ls)
+    "${ROOT_DIR}/commands/ls-local.sh" "${@}"
+    ;;
+  ls-remote)
+    "${ROOT_DIR}/commands/ls-remote.sh" "${@}"
+    ;;
+  uninstall)
+    "${ROOT_DIR}/commands/uninstall.sh" "${@}"
+    ;;
+  uninstall-lilyvm)
+    "${ROOT_DIR}/commands/uninstall-lilyvm.sh" "${@}"
+    ;;
+  update)
+    "${ROOT_DIR}/commands/update.sh" "${@}"
+    ;;
+  use)
+    "${ROOT_DIR}/commands/use.sh" "${@}"
+    ;;
+  using)
+    "${ROOT_DIR}/commands/using.sh" "${@}"
+    ;;
+  *)
+    log_error "Invalid command: ${GREEN}${1}${RESET}\n"
+    usage 2
+    exit 1
+    ;;
+esac
