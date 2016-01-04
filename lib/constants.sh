@@ -14,10 +14,15 @@ import config-utils
 # Main #
 #------#
 
-# config constants
+# config
 COLORS_ENABLED="colors_enabled"
 USING="using"
 
+# misc
+nl='
+'
+
+# initialize colors
 cu_get_value "${COLORS_ENABLED}"
 colorsEnabled="${config_utils_result}"
 

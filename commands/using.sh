@@ -54,7 +54,11 @@ using() {
   done
   
   local_versions_get_current
-  printf "Currently using lilypond %b\n\n" "${GREEN}${local_versions_res}${RESET}"
+  if [ "${local_versions_res}" = "" ]; then
+    log_warn "You don't have any versions of lilypond installed\n"
+  else # [ "${local_versions_res}" != "" ]; then
+    printf "Currently using lilypond %b\n\n" "${GREEN}${local_versions_res}${RESET}"
+  fi
 }
 
 

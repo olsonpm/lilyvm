@@ -8,6 +8,17 @@
 . "${ROOT_DIR}/lib/import.sh"
 import log
 
+#!/usr/bin/env sh
+
+
+CONSTANTS_SRC=1
+
+#---------#
+# Imports #
+#---------#
+
+import config-utils
+
 
 #------------------#
 # Script Variables #
@@ -80,7 +91,7 @@ uninstall_lilyvm() {
       printf "%b'%b'%b has been deleted.\n\nTo complete the uninstall," "${YELLOW}" "${ROOT_DIR}" "${RESET}"
       printf " you must remove the path modification you made\n  upon installation. The line should be"
       printf " found in your shell init script,\n  and resemble the following:\n\n"
-      printf "export PATH="'"'"%b/bin\${PATH}"'"'" # Adds lilyvm to PATH\n\n" "${ROOT_DIR}"
+      printf "export PATH="'"'"%b/bin:\${PATH}"'"'" # Adds lilyvm to PATH\n\n" "${ROOT_DIR}"
     fi
   else
     printf "lilyvm was not harmed\n\n"

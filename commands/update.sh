@@ -118,7 +118,8 @@ __update() {
   rm -rf "${ROOT_DIR}/options"
   
   cd "${ROOT_DIR}"
-  curl ${__show_output} "https://raw.githubusercontent.com/olsonpm/lilyvm/latest/dist/lilyvm.tar.bz2" | tar -xj
+  curl -Ls "https://github.com/olsonpm/lilyvm/archive/latest.tar.gz" | tar -xz
+  mv "lilyvm-latest"/* "lilyvm-latest"/.* . 2>/dev/null
   
   printf "Successfully updated lilyvm to version %b" "${GREEN}${__latest}${RESET}"
 }

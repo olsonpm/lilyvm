@@ -5,6 +5,7 @@
 # Init #
 #------#
 
+TAG=0.1.0
 # Output is hard to read when it's smashed against the previous command, so
 #   let's start with a blank line
 echo
@@ -74,23 +75,27 @@ fi
 #----------#
 
 if [ -z "${HOME+x}" ]; then
-  printf "%bWarning:%b environment variable HOME is not set." "${YELLOW}" "${RESET}"
-  printf "  Installing lilyvm in the current directory.\n\n"
+  printf "%bWarning:%b environment variable HOME is not set" "${YELLOW}" "${RESET}"
+  printf "  and you didn't\n  specify an installation directory.\nInstalling"
+  printf " lilyvm in the current directory.\n\n"
   export HOME="./"
 fi
+
 
 #------#
 # Main #
 #------#
 
-rootDir=$(realpath ${HOME}/.lilyvm)
+rootDir="$(realpath "${HOME}"/.lilyvm)"
 
 # safe to mkdir
-mkdir ${rootDir} && cd ${rootDir}
+mkdir "${rootDir}"
+cd "${rootDir}"
 
 mkdir bin versions
 
-curl -s "https://raw.githubusercontent.com/olsonpm/lilyvm/latest/dist/lilyvm.tar.bz2" | tar -xj
+curl -Ls "https://github.com/olsonpm/lilyvm/archive/v${TAG}.tar.gz" | tar -xz
+mv "lilyvm-${TAG}"/* "lilyvm-${TAG}"/.* . 2>/dev/null
 
 # Initialize the config file
 echo "colors_enabled=1" > .config

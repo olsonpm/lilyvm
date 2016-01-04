@@ -53,8 +53,23 @@ use() {
     esac
   done
   
-  local_versions_set_current "${1}"
-  printf "Now using version %b\n" "${GREEN}${1}${RESET}"
+  local requestedVersion="${1}"
+  local_versions_has "${requestedVersion}"
+  if [ "${local_versions_res}" = "0" ]; then
+    local msg="You do not have version ${GREEN}${requestedVersion}${RESET} installed.\n"
+    msg="${msg}Type ${YELLOW}lilyvm ls${RESET} to view your installed versions\n"
+    log_error "${msg}"
+    exit 1
+  fi
+  
+  local_versions_get_current
+  local current="${local_versions_res}"
+  if [ "${current}" = "${requestedVersion}" ]; then
+    log_warn "Already using version ${GREEN}${requestedVersion}${RESET}\n"
+  else # [ "${current}" != "${requestedVersion}" ]; then
+    local_versions_set_current "${requestedVersion}"
+    printf "Now using version %b\n\n" "${GREEN}${requestedVersion}${RESET}"
+  fi
 }
 
 

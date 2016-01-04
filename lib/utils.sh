@@ -58,11 +58,10 @@ run_command_with_status() {
   
   __utils_display_status "${status}" &
   local pid="${!}"
-  # trap sigint (ctrl+c)
-  trap 'kill ${pid}; exit 1' 2
+  trap 'kill ${pid}; exit 1' EXIT
   eval ${command}
   kill ${pid}
-  trap - 2
+  trap - EXIT
   clear_last_line
   printf "%b\n" "${successStatus}"
 }

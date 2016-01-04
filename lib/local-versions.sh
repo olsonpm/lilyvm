@@ -58,6 +58,7 @@ local_versions_set_current() {
     fi
   done
   
+  local_versions_res="${oldRes}"
 }
 
 local_versions_remove_shims() {

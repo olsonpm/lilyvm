@@ -83,9 +83,9 @@ uninstall() {
     else
       local_versions_set_current "${local_versions_res}"
       printf "Current version changed from the one you just uninstalled to "
-      printf "%b\n  which is the latest version " "${GREEN}${local_versions_res}${RESET}"
-      printf " you have.  Remember you can change the current version via "
-      printf "%b" "${YELLOW}lilyvm use <version>${RESET}"
+      printf "%b\n  which is the latest version" "${GREEN}${local_versions_res}${RESET}"
+      printf " you have.  Remember you can change\n  the current version via "
+      printf "%b\n\n" "${YELLOW}lilyvm use <version>${RESET}"
     fi
   fi
 }

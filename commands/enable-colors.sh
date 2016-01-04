@@ -7,6 +7,7 @@
 
 . "${ROOT_DIR}/lib/import.sh"
 import log
+import config-utils
 
 
 #------#
@@ -57,7 +58,7 @@ enable_colors() {
     log_warn "colors are already enabled"
   else # [ "${colorsEnabled}" = "0" ]; then
     cu_set_name_value "${COLORS_ENABLED}" "1"
-    printf "Colors have been %benabled%b" "${GREEN}" "${RESET}"
+    printf "Colors have been %benabled%b\n\n" "${GREEN}" "${RESET}"
   fi
 }
 
