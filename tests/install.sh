@@ -14,6 +14,7 @@ import test-common
 #------#
 
 command="${ROOT_DIR}/commands/install.sh"
+
 cp -r "${ROOT_DIR}/versions" "${ROOT_DIR}/versions.bak"
 cp "${CONFIG_FILE}" "${CONFIG_FILE}.bak"
 

@@ -112,13 +112,13 @@ tu_finalize () {
 tu_assert_success () {
   __tu_validate_call "${1}"
   local call="${__test_utils_res}"
-  
+
   __tu_validate_function_name "${2}"
   local fxnName="${__test_utils_res}"
-  
+
   __tu_validate_test_description "${3}"
   local tstDesc="${__test_utils_res}"
-  
+
   if (${call} >/dev/null 2>&1); then
     __tu_pretty_print_test "${GREEN}success${RESET}" "${fxnName}" "${tstDesc}"
     __tu_increment_successes
@@ -131,13 +131,13 @@ tu_assert_success () {
 tu_assert_error () {
   __tu_validate_call "${1}"
   local call="${__test_utils_res}"
-  
+
   __tu_validate_function_name "${2}"
   local fxnName="${__test_utils_res}"
-  
+
   __tu_validate_test_description "${3}"
   local tstDesc="${__test_utils_res}"
-  
+
   if ! (${call} >/dev/null 2>&1); then
     __tu_pretty_print_test "${GREEN}success${RESET}" "${fxnName}" "${tstDesc}"
     __tu_increment_successes
@@ -150,16 +150,16 @@ tu_assert_error () {
 tu_assert_errno () {
   __tu_validate_call "${1}"
   local call="${__test_utils_res}"
-  
+
   __tu_validate_errno "${2}"
   local errno="${__test_utils_res}"
-  
+
   __tu_validate_function_name "${3}"
   local fxnName="${__test_utils_res}"
-  
+
   __tu_validate_test_description "${4}"
   local tstDesc="${__test_utils_res}"
-  
+
   (${call} >/dev/null 2>&1)
   if [ "${?}" = "${errno}" ]; then
     __tu_pretty_print_test "${GREEN}success${RESET}" "${fxnName}" "${tstDesc}"
@@ -173,10 +173,10 @@ tu_assert_errno () {
 tu_assert_errno_nr () {
   __tu_validate_call "${1}"
   local call="${__test_utils_res}"
-  
+
   __tu_validate_errno "${2}"
   local errno="${__test_utils_res}"
-  
+
   (${call} >/dev/null 2>&1)
   if [ "${?}" != "${errno}" ]; then
     exit 1
@@ -234,7 +234,7 @@ __tu_pretty_print_test () {
   local result="${1}"
   local fxnName="${2}"
   local tstDesc="${3}"
-  
+
   printf "%b" "${result}"
   if [ ${#fxnName} -gt "30" ]; then
     # indent four spaces

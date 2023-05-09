@@ -28,9 +28,9 @@ test_common_install_lilyvm_init() {
   local installDir="${1}"
   lilyvmDir="$(which lilyvm | xargs dirname | sed -e 's/\./\\\./')"
   if [ "${lilyvmDir}" != "lilyvm not found" ]; then
-    PATH="$(printf "%b" "${PATH}" | sed -e "s@:${lilyvmDir}@@")"
+    PATH="$(printf "%b" "${PATH}" | sed -E -e "s@:?${lilyvmDir}@@")"
   fi
-  
+
   # set up the installation directory
   __test_common_expected_install_dir="${installDir}"
   mkdir -p "${installDir}"
